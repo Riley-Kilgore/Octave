@@ -38,13 +38,7 @@ Theta2_grad = zeros(size(Theta2));
 %         variable J. After implementing Part 1, you can verify that your
 %         cost function computation is correct by verifying the cost
 %         computed in ex4.m
-%
-% Part 2: Implement the backpropagation algorithm to compute the gradients
-%         Theta1_grad and Theta2_grad. You should return the partial derivatives of
-%         the cost function with respect to Theta1 and Theta2 in Theta1_grad and
-%         Theta2_grad, respectively. After implementing Part 2, you can check
-%         that your implementation is correct by running checkNNGradients
-%
+
 % Foward propagation
 % a1 = X;
 X = [ones(m,1) X]; % 5000*401
@@ -131,14 +125,15 @@ Theta1_grad = (1/m) * Theta1_grad; % (25*401)
 
 % Regularization
 
+% Theta1_grad(:, 1) = Theta1_grad(:, 1) ./ m; % for j = 0
+%
+Theta1_grad(:, 2:end) = Theta1_grad(:, 2:end) + ((lambda/m) * Theta1(:, 2:end)); % for j >= 1
+%
+% Theta2_grad(:, 1) = Theta2_grad(:, 1) ./ m; % for j = 0
+%
 Theta2_grad(:, 2:end) = Theta2_grad(:, 2:end) + ((lambda/m) * Theta2(:, 2:end)); % for j >= 1
-
-grad = [Theta1_grad(:) ; Theta2_grad(:)];
-
-% =========================================================================
 
 % Unroll gradients
 grad = [Theta1_grad(:) ; Theta2_grad(:)];
-
 
 end
